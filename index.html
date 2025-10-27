@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPS Converter Hub</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="FCH_icon.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #061522;
+      color: #fff;
+      text-align: center;
+    }
+    h1 {
+      color: #19a6ff;
+      margin-top: 30px;
+    }
+    select, input, button {
+      margin: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background-color: #19a6ff;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #148cd4;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background-color: #0a2036;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #19a6ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="FCH_icon.png" alt="FCH Logo" width="100" style="margin-bottom:20px;">
+    <h1>FPS Converter Hub</h1>
+    <p>Convert your controller sensitivities accurately between games.</p>
+    <select id="sourceGame">
+      <option value="mw3">MW3</option>
+      <option value="bo6">BO6</option>
+      <option value="bf6">Battlefield 6</option>
+      <option value="thefinals">The Finals</option>
+      <option value="apex">Apex Legends</option>
+      <option value="r6">Rainbow Six</option>
+    </select>
+    <input type="number" id="sensitivity" placeholder="Enter Sensitivity">
+    <button id="convert">Convert</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    document.getElementById("convert").addEventListener("click", () => {
+      const sens = parseFloat(document.getElementById("sensitivity").value);
+      const game = document.getElementById("sourceGame").value;
+      let converted = sens;
+
+      if (game === "mw3") converted = sens * 5;
+      else if (game === "bo6") converted = sens * 20;
+      else if (game === "bf6") converted = sens * 0.75;
+      else if (game === "thefinals") converted = sens * 3;
+      else if (game === "apex") converted = sens * 10;
+      else if (game === "r6") converted = sens * 1.5;
+
+      document.getElementById("result").textContent = `Converted sensitivity: ${converted.toFixed(2)}`;
+    });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>
